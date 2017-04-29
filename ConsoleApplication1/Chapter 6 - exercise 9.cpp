@@ -95,15 +95,15 @@ std::string numInWords(std::vector<int> input)
 }
 
 
-int main()
-{
-	std::cout << "Please input a number: ";
-	std::string input;
-	std::cin >> input;
-	std::string output;
-	output = numInWords(convertStringToIntVector(input));
-	std::cout << output << '\n';
-
-	system("PAUSE");
-
-}
+//int main()
+//{
+//	std::cout << "Please input a number: ";
+//	std::string input;
+//	std::cin >> input;
+//	std::string output;
+//	output = numInWords(convertStringToIntVector(input));
+//	std::cout << output << '\n';
+//
+//	system("PAUSE");
+//
+//}

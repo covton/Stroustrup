@@ -35,5 +35,8 @@
     <ClCompile Include="Chapter 6 - exercise 9.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Chapter 4 - exercise 11.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
