@@ -22,7 +22,7 @@ std::string addThousands(int input)
 std::string addHundreds(int input)
 {
 	return std::to_string(input) + " hundred";
-}
+} 
 
 std::string addTens(int input)
 {
