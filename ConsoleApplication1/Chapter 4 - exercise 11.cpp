@@ -90,18 +90,18 @@ long getLongFromUser(std::string strPrompt, long minNum, long maxNum) {
 	return result;
 }
 
-int main()
-{
-	long limit;
-	limit = getLongFromUser("Find all primes up to which number? ", 0, 10000);
-	try
-	{
-		std::vector<long> listOfPrimes = generatePrimes(limit);
-		printPrimes(listOfPrimes);
-	}
-	catch (...)
-	{
-		std::cout << "No primes exist below " << limit << '\n';
-	}
-	system("PAUSE"); //know this is not ideal, but does for now
-}
+//int main()
+//{
+//	long limit;
+//	limit = getLongFromUser("Find all primes up to which number? ", 0, 10000);
+//	try
+//	{
+//		std::vector<long> listOfPrimes = generatePrimes(limit);
+//		printPrimes(listOfPrimes);
+//	}
+//	catch (...)
+//	{
+//		std::cout << "No primes exist below " << limit << '\n';
+//	}
+//	system("PAUSE"); //know this is not ideal, but does for now
+//}
