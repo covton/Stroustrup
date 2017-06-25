@@ -2,7 +2,14 @@
 #include "\Users\Covton\Documents\C++\std_lib_facilities.h"
 #include <cmath>
 
-class Token{
+const char number = '8';
+const char quit = 'q';
+const char print = ';';
+const std::string prompt = "> ";
+const std::string result = "= ";
+
+class Token
+{
 public:
 	char kind;        // what kind of token
 	double value;     // for numbers: a value 
@@ -12,11 +19,13 @@ public:
 		:kind(ch), value(val) { }
 };
 
-class Token_stream {
+class Token_stream
+{
 public:
 	Token_stream();   // make a Token_stream that reads from cin
 	Token get();      // get a Token (get() is defined elsewhere)
 	void putback(Token t);    // put a Token back
+	void ignore(char c);
 private:
 	bool full;        // is there a Token in the buffer?
 	Token buffer;     // here is where we keep a Token put back using putback()
@@ -47,8 +56,8 @@ Token Token_stream::get()
 	cin >> ch;    // note that >> skips whitespace (space, newline, tab, etc.)
 
 	switch (ch) {
-	case ';':    // for "print"
-	case 'q':    // for "quit"
+	case print:   
+	case quit:    
 	case '(': case ')': case '+': case '-': case '*': case '/':
 		return Token(ch);        // let each character represent itself
 	case '.':
@@ -62,6 +71,24 @@ Token Token_stream::get()
 	}
 	default:
 		error("Bad token");
+	}
+}
+
+void Token_stream::ignore(char c)
+{
+	if (full == true && c == buffer.kind)
+	{
+		full = false;
+		return;
+	}
+	full = false;
+	char ch = 0;
+	while (cin >> ch)
+	{
+		if (ch = c)
+		{
+			return;
+		}
 	}
 }
 
@@ -81,7 +108,7 @@ double primary()
 		}
 		break;
 	}
-	case '8':            // we use '8' to represent a number
+	case number:            // we use '8' to represent a number
 		return t.value;  // return the number's value
 		break;
 	case '-':
@@ -161,30 +188,44 @@ double expression()
 	}
 }
 
-//------------------------------------------------------------------------------
+void cleanUpStream()
+{
+	ts.ignore(print);
+}
+
+void calculate()
+{
+	while (cin) {
+		try
+		{
+			std::cout << prompt;
+			Token t = ts.get();
+			while (t.kind == print)
+			{
+				t = ts.get();
+			}
+			if (t.kind == quit)
+			{
+				return;
+			}
+			ts.putback(t);
+			std::cout << result << expression() << '\n';
+		}
+		catch (exception& e)
+		{
+			std::cerr << e.what() << '\n';
+			cleanUpStream();
+		}
+	}
+}
 
 int main()
 {
 	try
 	{
-		while (cin) {
-			std::cout << "> ";
-			Token t = ts.get();
-			while (t.kind == ';')
-			{
-				t = ts.get();
-			}
-			if (t.kind == 'q')
-			{
-			keep_window_open();
-			return 0;
-			}
-			else
-			{
-				ts.putback(t);
-				std::cout << "= " << expression() << '\n';
-			}
-		}
+		calculate();
+		keep_window_open();
+		return 0;
 	}
 	catch (exception& e) {
 		cerr << "Error: " << e.what() << '\n';
